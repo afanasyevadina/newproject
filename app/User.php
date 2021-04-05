@@ -76,6 +76,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Article');
     }
 
+    public function projects()
+    {
+        return $this->hasMany('App\Project');
+    }
+
     public function getSubscriptionAttribute()
     {
         if(!\Auth::user()) return false;

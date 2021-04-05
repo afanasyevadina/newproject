@@ -30,3 +30,6 @@
 	object-fit: cover;
 	object-position: center;
 }
+.from-cke img {
+	max-width: 100%;
+}

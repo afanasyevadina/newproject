@@ -69,4 +69,16 @@ class Article extends Model
         }
         $this->save();
     }
+
+    public function getLikedAttribute()
+    {
+        if(!\Auth::check()) return false;
+        return $this->likes()->where('user_id', \Auth::id())->exists();
+    }
+
+    public function getDislikedAttribute()
+    {
+        if(!\Auth::check()) return false;
+        return $this->dislikes()->where('user_id', \Auth::id())->exists();
+    }
 }

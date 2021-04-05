@@ -38,7 +38,7 @@
                         <form action="{{ route('search', app()->getLocale()) }}" class="ml-md-4 input-group" autocomplete="off">
                             <input type="text" class="form-control" name="q" placeholder="{{ __("Let's search anything") }}...">
                             <div class="input-group-append">
-                                <button class="input-group-text bg-success">
+                                <button class="input-group-text bg-primary">
                                     <img src="/images/icons/search.svg" alt="" height="15">
                                 </button>
                             </div>
@@ -48,7 +48,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item mr-md-4">
-                            <a href="#" class="nav-link">{{ __('Projects') }}</a>
+                            <a href="{{ route('projects', app()->getLocale()) }}" class="nav-link">
+                                {{ __('Projects') }}
+                                @auth
+                                 ({{ \Auth::user()->projects()->count() }})
+                                @endauth
+                            </a>
                         </li>
                         <li class="nav-item mr-md-4">
                             <a href="{{ route('blog', app()->getLocale()) }}" class="nav-link">{{ __('Blog') }}</a>
@@ -99,5 +104,7 @@
     </main>
 </div>
 </body>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 @yield('scripts')
 </html>

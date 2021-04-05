@@ -10,9 +10,11 @@ class Comment extends Model
         'commentable_id', 
         'commentable_type', 
         'user_id', 
+        'title',
         'text',
         'reply_to',
         'image',
+        'comments',
         'recommended',
     ];
 
@@ -26,6 +28,11 @@ class Comment extends Model
     public function commentable()
     {
         return $this->morphTo();
+    }
+
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
     }
 
     public function likes()
@@ -66,5 +73,17 @@ class Comment extends Model
     public function getRatingAttribute()
     {
         return $this->likes_count - $this->dislikes_count;
+    }
+
+    public function generateSlug()
+    {
+        if(!trim($this->title)) $this->slug = $this->id;
+        else {
+            $this->slug = \Str::slug($this->title);
+            $i = 0;
+            while(static::where('slug', $this->slug)->where('id', '<>', $this->id)->exists())
+                $this->slug = \Str::slug($this->title).'_'.(++$i);
+        }
+        $this->save();
     }
 }

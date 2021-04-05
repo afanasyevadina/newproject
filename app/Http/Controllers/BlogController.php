@@ -42,4 +42,31 @@ class BlogController extends Controller
         $article->generateSlug();
         return redirect()->route('blog.view', [app()->getLocale(), $article->slug])->with('success', 'Article created');
     }
+
+    public function edit($locale = 'en', $id)
+    {
+        $article = Article::where('slug', $id)->firstOrFail();
+        $categories = Category::all();
+        return view('blog/edit', [
+            'article' => $article,
+            'categories' => $categories,
+            'title' => $article->title,
+        ]);
+    }
+
+    public function update(Request $request, $locale = 'en', $id)
+    {
+        $article = Article::where('slug', $id)->firstOrFail();
+        $article->update($request->all());
+        $article->categories()->sync($request->categories ?? []);
+        $article->generateSlug();
+        return redirect()->route('blog.view', [app()->getLocale(), $article->slug])->with('success', 'Article updated');
+    }
+
+    public function delete($locale = 'en', $id)
+    {
+        $article = Article::where('slug', $id)->firstOrFail();
+        $article->delete();
+        return redirect()->route('blog', app()->getLocale())->with('success', 'Article deleted');
+    }
 }
