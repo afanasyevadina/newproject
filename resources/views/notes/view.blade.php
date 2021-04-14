@@ -1,34 +1,41 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-	<div class="d-flex align-items-start justify-content-between">
-		<div>
-			<h1 class="mb-4">{{ $note->title }}</h1>
-			<p class="mb-3">{{ __('Project') }}: {{ $note->commentable->title }}</p>
+<div class="bg-light py-5 shadow">
+	<div class="container">
+		<div class="d-flex align-items-start justify-content-between">
+			<div>
+				<h1 class="mb-4">{{ $note->title }}</h1>
+				<h5 class="mb-3">
+					<a class="text-dark" href="{{ route('projects.view', [app()->getLocale(), $note->commentable->slug]) }}">{{ __('Project') }}: {{ $note->commentable->title }}</a>
+				</h5>
+			</div>
+			@if($note->user->id == \Auth::id())
+			<div class="dropdown">
+				<button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="/images/icons/more.svg" alt=""/>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
+					<a class="dropdown-item" href="{{ route('notes.edit', [app()->getLocale(), $note->slug]) }}">{{ __('Edit') }}</a>
+					<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</a>
+				</div>
+			</div>
+			@endif 
 		</div>
-		@if($note->user->id == \Auth::id())
-		<div class="dropdown">
-			<button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img src="/images/icons/more.svg" alt=""/>
-			</button>
-			<div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
-				<a class="dropdown-item" href="{{ route('notes.edit', [app()->getLocale(), $note->slug]) }}">{{ __('Edit') }}</a>
-				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</a>
+		<div class="d-flex">
+			<div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('comment.like', $note->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
+				<span class="mr-1 likes-count">{{ $note->likes_count }}</span>
+				<span class="text-success">+</span>
+			</div>
+			<div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('comment.dislike', $note->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
+				<span class="mr-1 dislikes-count">{{ $note->dislikes_count }}</span>
+				<span class="text-danger">-</span>
 			</div>
 		</div>
-		@endif 
 	</div>
-	<div class="d-flex mb-4">
-		<div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('comment.like', $note->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
-			<span class="mr-1 likes-count">{{ $note->likes_count }}</span>
-			<span class="text-success">+</span>
-		</div>
-		<div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('comment.dislike', $note->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
-			<span class="mr-1 dislikes-count">{{ $note->dislikes_count }}</span>
-			<span class="text-danger">-</span>
-		</div>
-	</div>
+</div>
+<div class="container py-5">
 	<div class="from-cke mb-5">{!! $note->text !!}</div>
+	<hr>
 	<div id="app" class="fade">
 		@verbatim
 		<h6 class="mb-4">{{ count }} <?=__('comments')?></h6>

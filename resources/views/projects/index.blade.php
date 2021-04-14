@@ -1,15 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="jumbotron">
-    <h1 class="mb-5">{{ __('Projects') }}</h1>
-    <a href="{{ route('projects.create', app()->getLocale()) }}" class="btn btn-success btn-lg">{{ __('Start new project') }}</a>
+<div class="bg-light py-5 shadow">
+  <div class="container">
+    <div class="d-sm-flex align-items-start justify-content-center justify-content-sm-between">
+      <h1 class="mb-4 mb-md-0">{{ __('Projects') }}</h1>
+      <a href="{{ route('projects.create', app()->getLocale()) }}" class="btn btn-success btn-lg">{{ __('Start new project') }}</a>
+    </div>
   </div>
+</div>
+<div class="container py-5">
   <div class="row">
     @foreach($projects as $project)
     <div class="col-lg-4 col-sm-6">
-      <div class="card h-100">
+      <div class="card h-100 shadow">
         <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
           <h3 class="mb-2">{{ $project->title }}</h3>
           <small class="d-block text-muted mb-4">{{ $project->user->name }}, {{ $project->date }}</small>

@@ -1,40 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<div class="d-flex align-items-start justify-content-between">
-		<h1 class="mb-4">{{ $article->title }}</h1>
-		@if($article->user->id == \Auth::id())
-		<div class="dropdown">
-			<button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				<img src="/images/icons/more.svg" alt=""/>
-			</button>
-			<div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
-				<a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
-				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</a>
+<div class="bg-light py-5 shadow	">
+	<div class="container">
+		<div class="d-flex align-items-start justify-content-between">
+			<h1 class="mb-4">{{ $article->title }}</h1>
+			@if($article->user->id == \Auth::id())
+			<div class="dropdown">
+				<button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<img src="/images/icons/more.svg" alt=""/>
+				</button>
+				<div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
+					<a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
+					<a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</a>
+				</div>
+			</div>
+			@endif 
+		</div>
+		<div>
+			<div class="mb-3 d-flex align-items-center">
+				<a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark mr-3 d-flex align-items-center">
+					<img srcset="{{ $article->user->avatar }}, {{ config('app.avatar') }}" alt="" class="img-cover rounded-circle mr-2" width="20" height="20">
+					{{ $article->user->name }}
+				</a>
+				<small class="text-dark">{{ $article->date }}</small>
+			</div>
+			<div class="d-flex">
+				<div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('blog.like', $article->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
+					<span class="mr-1 likes-count">{{ $article->likes_count }}</span>
+					<span class="text-success">+</span>
+				</div>
+				<div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('blog.dislike', $article->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
+					<span class="mr-1 dislikes-count">{{ $article->dislikes_count }}</span>
+					<span class="text-danger">-</span>
+				</div>
 			</div>
 		</div>
-		@endif 
 	</div>
-	<div class="mb-4">
-		<div class="mb-3 d-flex align-items-center">
-			<a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark mr-3 d-flex align-items-center">
-				<img srcset="{{ $article->user->avatar }}, {{ config('app.avatar') }}" alt="" class="img-cover rounded-circle mr-2" width="20" height="20">
-				{{ $article->user->name }}
-			</a>
-			<small class="text-dark">{{ $article->date }}</small>
-		</div>
-		<div class="d-flex">
-			<div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('blog.like', $article->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
-				<span class="mr-1 likes-count">{{ $article->likes_count }}</span>
-				<span class="text-success">+</span>
-			</div>
-			<div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('blog.dislike', $article->id) }}" data-likes=".likes-count" data-dislikes=".dislikes-count">
-				<span class="mr-1 dislikes-count">{{ $article->dislikes_count }}</span>
-				<span class="text-danger">-</span>
-			</div>
-		</div>
-	</div>
+</div>
+<div class="container py-5">
 	<p class="mb-4">{!! $article->subtitle !!}</p>
 	<div class="from-cke mb-5">{!! $article->content !!}</div>
 	<div class="mb-4">

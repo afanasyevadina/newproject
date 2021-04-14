@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="jumbotron">
+<div class="bg-light py-5">
+  <div class="container">
     <h1>{{ $project->title }}</h1>
     <p class="mb-4">
       <a href="{{ route('profile.view', [app()->getLocale(), $project->user->slug]) }}" class="text-dark">{{ $project->user->name }}</a>, {{ __('since') }} {{ $project->date }}
@@ -18,24 +18,21 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container py-5">
   <ul class="nav nav-tabs mb-4">
     <li class="nav-item">
-      <a href="#main" class="nav-link active" data-toggle="tab">{{ __('Main') }}</a>
-    </li>
-    <li class="nav-item">
-      <a href="#notes" class="nav-link" data-toggle="tab">{{ __('Notes') }}</a>
+      <a href="#main" class="nav-link {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active' : '' }}" data-toggle="tab">{{ __('Main') }}</a>
     </li>
     @if($project->user->id == \Auth::id())
     <li class="nav-item">
-      <a href="#settings" class="nav-link" data-toggle="tab">{{ __('Settings') }}</a>
+      <a href="#settings" class="nav-link {{ \Request::get('tab') == 'settings' ? 'active' : '' }}" data-toggle="tab">{{ __('Settings') }}</a>
     </li>
     @endif
   </ul>
   <div class="tab-content">
-    <div class="tab-pane fade active show" id="main">
-      {!! nl2br($project->subtitle) !!}
-    </div>
-    <div class="tab-pane fade" id="notes">
+    <div class="tab-pane fade {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active show' : '' }}" id="main">
+      <div class="mb-5">{!! nl2br($project->subtitle) !!}</div>
       <div class="d-flex align-items-start justify-content-between mb-4">
         <h3>{{ __('Notes') }}</h3>
         @if($project->user->id == \Auth::id())
@@ -88,7 +85,7 @@
       @endforeach
     </div>
     @if($project->user->id == \Auth::id())
-    <div class="tab-pane fade" id="settings">
+    <div class="tab-pane fade {{ \Request::get('tab') == 'settings' ? 'active show' : '' }}" id="settings">
       <form class="row" action="{{ route('projects.edit', [app()->getLocale(), $project->slug]) }}" method="POST" autocomplete="off">
         @csrf
         <div class="col-12">
@@ -105,7 +102,7 @@
                   <label>{{ __('Subtitle') }}</label>
                   <textarea name="subtitle" rows="5" class="form-control">{{ $project->subtitle }}</textarea>
                 </div>
-                <div class="col-12">
+                <div class="col-12 form-group">
                   <label class="mb-3">{{ __('Tags') }}</label>
                   <div class="row">
                     @foreach($categories as $category)
@@ -118,12 +115,12 @@
                     @endforeach
                   </div>
                 </div>
+                <div class="col-12 d-flex justify-content-end">
+                  <button type="button" class="btn btn-light btn-secondary mr-3" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</button>
+                  <button class="btn btn-light btn-primary">{{ __('Save') }}</button>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-end">
-            <button type="button" class="btn btn-secondary mr-3" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</button>
-            <button class="btn btn-primary">{{ __('Save') }}</button>
           </div>
         </div>
       </form>

@@ -3,11 +3,11 @@
 <script src="/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-<div class="container">
+<div class="container py-5">
 	<form class="row" action="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}" method="POST" autocomplete="off">
 		@csrf
 		<div class="col-12">
-			<div class="card mb-4">
+			<div class="card mb-4 shadow">
 				<div class="card-header">{{ __('Edit article') }}</div>
 
 				<div class="card-body">
@@ -23,7 +23,7 @@
 						<div class="col-12 form-group">
 							<textarea id="editor" name="content">{{ $article->content }}</textarea>
 						</div>
-						<div class="col-12">
+						<div class="col-12 form-group">
 							<label class="mb-3">{{ __('Tags') }}</label>
 							<div class="row">
 								@foreach($categories as $category)
@@ -36,12 +36,12 @@
 								@endforeach
 							</div>
 						</div>
+						<div class="col-12 d-flex justify-content-end">
+							<button type="button" class="btn btn-lg btn-secondary mr-3" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</button>
+							<button class="btn btn-lg btn-primary">{{ __('Save') }}</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="d-flex justify-content-end">
-				<button type="button" class="btn btn-secondary mr-3" data-toggle="modal" data-target="#delete">{{ __('Delete') }}</button>
-				<button class="btn btn-primary">{{ __('Save') }}</button>
 			</div>
 		</div>
 	</form>

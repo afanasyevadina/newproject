@@ -1,23 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="jumbotron">
-    <h1>{{ $user->name }}</h1>
+<div class="bg-light py-5 shadow">
+  <div class="container">
+    <div class="d-flex align-items-start flex-wrap">
+      <img srcset="{{ $user->avatar }}, {{ config('app.avatar') }}" alt="" height="100" width="100" class="img-cover rounded-circle">
+      <div class="ml-3 ml-md-4">
+        <h1 class="mb-4">{{ $user->name }}</h1>
+        <div class="d-flex flex-wrap mb-3">
+          <div class="text-secondary mr-4 mb-2">
+            <h5 class="mb-0">{{ $user->subscribers()->count() }}</h5>
+            <div>{{ __('subscribers') }}</div>
+          </div>
+          <div class="text-secondary mr-4 mb-2">
+            <h5 class="mb-0">{{ $user->subscriptions()->count() }}</h5>
+            <div>{{ __('subscriptions') }}</div>
+          </div>
+          <div class="text-secondary mr-4 mb-2">
+            <h5 class="mb-0">{{ $user->projects()->count() }}</h5>
+            <div>{{ __('projects') }}</div>
+          </div>
+          <div class="text-secondary mb-2">
+            <h5 class="mb-0">{{ $user->articles()->count() }}</h5>
+            <div>{{ __('articles') }}</div>
+          </div>
+        </div>
+        <button class="btn btn-lg btn-success subscribe-btn unsubscribed" data-href="{{ route('subscribe', $user->id) }}" {{ $user->subscription ? 'hidden' : '' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Subscribe') }}</button>
+        <button class="btn btn-lg btn-secondary subscribe-btn subscribed" data-href="{{ route('unsubscribe', $user->id) }}" {{ $user->subscription ? '' : 'hidden' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Unsubscribe') }}</button>
+      </div>
+    </div>
   </div>
+</div>
+<div class="container py-5">
   <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a href="" class="nav-link active" data-toggle="tab" data-target="#main">{{ __('Main') }}</a>
+      <a href="#main" class="nav-link {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active' : '' }}" data-toggle="tab">{{ __('Main') }}</a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link" data-toggle="tab" data-target="#articles">{{ __('Articles') }}</a>
+      <a href="#articles" class="nav-link {{ \Request::get('tab') == 'articles' ? 'active' : '' }}" data-toggle="tab">{{ __('Articles') }}</a>
     </li>
     <li class="nav-item">
-      <a href="" class="nav-link" data-toggle="tab" data-target="#projects">{{ __('Projects') }}</a>
+      <a href="#projects" class="nav-link {{ \Request::get('tab') == 'projects' ? 'active' : '' }}" data-toggle="tab">{{ __('Projects') }}</a>
     </li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane fade py-4 active show" id="main">
+    <div class="tab-pane fade py-4 {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active show' : '' }}" id="main">
       <div class="mb-4">
         <small class="d-block mb-2">{{ __('About') }} {{ @explode(' ', $user->name)[0] }}:</small>
         {{ nl2br($user->about) }}
@@ -35,11 +62,11 @@
         {{ $user->goals->pluck('name')->implode(', ') }}
       </div>
     </div>
-    <div class="tab-pane fade py-4" id="projects">
+    <div class="tab-pane fade py-4 {{ \Request::get('tab') == 'projects' ? 'active show' : '' }}" id="projects">
       <div class="row">
         @foreach($user->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
         <div class="col-lg-4 col-sm-6">
-          <div class="card h-100">
+          <div class="card h-100 shadow">
             <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
               <h3 class="mb-2">{{ $project->title }}</h3>
               <small class="d-block text-muted mb-4">{{ $project->user->name }}, {{ $project->date }}</small>
@@ -70,9 +97,9 @@
         @endforeach
       </div>
     </div>
-    <div class="tab-pane fade py-4" id="articles">
+    <div class="tab-pane fade py-4 {{ \Request::get('tab') == 'articles' ? 'active show' : '' }}" id="articles">
       @foreach($user->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
-      <div class="card">
+      <div class="card shadow">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between mb-2">
             <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">
@@ -135,4 +162,12 @@
     </div>
   </div>
 </div>
+@endsection
+@section('scripts')
+<script src="/js/subscription.js"></script>
+<script>
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    history.pushState(null, null, location.pathname + '?tab=' + $(e.target).attr("href").replace('#', ''))
+  });
+</script>
 @endsection

@@ -1,28 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-	<div class="row align-items-center my-5">
-		<div class="col-sm-6">
-			<h1 class="mb-4">{{ config('app.name') }}</h1>
-			<h5 class="mb-5">Хочешь изучить новое – начни свой проект.</h5>
-			<div class="row">
-				<div class="col-6">
-					<a href="{{ route('projects', app()->getLocale()) }}" class="btn btn-success btn-lg btn-block">
-						{{ __('Start now') }}
-					</a>
-				</div>
-				<div class="col-6">
-					<a href="#about" class="btn btn-primary btn-lg btn-block">
-						{{ __('Learn more') }}
-					</a>
+<div class="bg-light py-5 shadow mb-5">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-sm-6">
+				<h1 class="mb-4">{{ config('app.name') }}</h1>
+				<h5 class="mb-5">Хочешь изучить новое – начни свой проект.</h5>
+				<div class="row">
+					<div class="col-6">
+						<a href="{{ route('projects', app()->getLocale()) }}" class="btn btn-success btn-lg btn-block">
+							{{ __('Start now') }}
+						</a>
+					</div>
+					<div class="col-6">
+						<a href="#about" class="btn btn-primary btn-lg btn-block">
+							{{ __('Learn more') }}
+						</a>
+					</div>
 				</div>
 			</div>
-		</div>
-		<div class="col-sm-6 text-center">
-			<img src="/images/logo.png" alt="" class="img-fluid">
+			<div class="col-sm-6 text-center">
+				<img src="/images/logo.png" alt="" class="img-fluid">
+			</div>
 		</div>
 	</div>
+</div>
+<div class="container">
 	<div class="row align-items-center mb-4">
 		<div class="col-sm-6">
 			<h3 class="mb-4">{{ __('For beginners') }}</h3>
@@ -51,7 +55,7 @@
 				<h2 class="text-center text-white">{{ __('What is this?') }}</h2>
 			</div>
 			<div class="col-md-4 mb-3">
-				<div class="card h-100 shadow-sm">
+				<div class="card h-100 shadow">
 					<div class="card-body">
 						<h4 class="mb-2">{{ __('Learn new') }}</h4>
 						<p>Указывайте свои цели в обучении, создавайте проекты и получайте поддержку</p>
@@ -59,7 +63,7 @@
 				</div>
 			</div>
 			<div class="col-md-4 mb-3">
-				<div class="card h-100 shadow-sm">
+				<div class="card h-100 shadow">
 					<div class="card-body">
 						<h4 class="mb-2">{{ __('Share experience') }}</h4>
 						<p>Расскажите, в чем вы эксперт, прокачивайте навыки и находите студентов</p>
@@ -67,7 +71,7 @@
 				</div>
 			</div>
 			<div class="col-md-4 mb-3">
-				<div class="card h-100 shadow-sm">
+				<div class="card h-100 shadow">
 					<div class="card-body">
 						<h4 class="mb-2">{{ __('Join the community') }}</h4>
 						<p>Читайте и блоги, смотрите проекты, участвуйте в обуждении и общайтесь по интересам</p>

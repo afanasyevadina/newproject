@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container py-5">
 	<form class="row" action="{{ route('profile.settings', app()->getLocale()) }}" method="POST" autocomplete="off">
 		@csrf
 		<div class="col-md-4 col-xl-3">
-			<div class="position-relative overflow-hidden avatar-area">
+			<div class="position-relative overflow-hidden avatar-area shadow">
 				<div class="img-rel img-rel-100">
 					<img src="" alt="" id="preview" hidden>
 					<img srcset="{{ $user->avatar }}, {{ config('app.avatar') }}" alt="" id="image">
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 		<div class="col-md-8 col-xl-9">
-			<div class="card mb-4">
+			<div class="card mb-4 shadow">
 				<div class="card-header">{{ __('Main information') }}</div>
 
 				<div class="card-body">
@@ -49,7 +49,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="card mb-4">
+			<div class="card mb-4 shadow">
 				<div class="card-header">{{ __('Areas of activity') }}</div>
 
 				<div class="card-body">
@@ -91,7 +91,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-end">
-				<button class="btn btn-primary">{{ __('Save') }}</button>
+				<button class="btn btn-lg btn-primary">{{ __('Save') }}</button>
 			</div>
 		</div>
 	</form>

@@ -27,7 +27,7 @@
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body class="bg-white">
-    <nav class="navbar navbar-expand-md navbar-light shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light shadow">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
@@ -52,17 +52,16 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item mr-md-4">
-                        <a href="{{ route('projects', app()->getLocale()) }}" class="nav-link">
-                            {{ __('Projects') }}
-                            @auth
-                            ({{ \Auth::user()->projects()->count() }})
-                            @endauth
-                        </a>
-                    </li>
-                    <li class="nav-item mr-md-4">
                         <a href="{{ route('blog', app()->getLocale()) }}" class="nav-link">{{ __('Blog') }}</a>
                     </li>
-                    <!-- Authentication Links -->
+                    <li class="nav-item mr-md-4">
+                        <a href="{{ route('projects', app()->getLocale()) }}" class="nav-link">{{ __('Projects') }}</a>
+                    </li>
+                    <li class="nav-item mr-md-4 d-flex align-items-center">
+                        <a class="nav-link {{ app()->getLocale() == 'ru' ? 'underline' : '' }}" href="{{ route('home', 'ru') }}">RU</a>
+                        <div class="nav-text">/</div>
+                        <a class="nav-link {{ app()->getLocale() == 'en' ? 'underline' : '' }}" href="{{ route('home', 'en') }}">EN</a>
+                    </li>
                     @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login', app()->getLocale()) }}">{{ __('Login') }}</a>
@@ -80,7 +79,7 @@
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ route('profile', app()->getLocale()) }}">
-                                {{ __('Home') }}
+                                {{ __('Profile') }}
                             </a>
                             <a class="dropdown-item" href="{{ route('profile.settings', app()->getLocale()) }}">
                                 {{ __('Settings') }}

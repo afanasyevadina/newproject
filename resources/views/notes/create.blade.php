@@ -3,7 +3,7 @@
 <script src="/ckeditor/ckeditor.js"></script>
 @endsection
 @section('content')
-<div class="container">
+<div class="container py-5">
 	<form class="row" action="{{ route('notes.create', [app()->getLocale(), $project->id]) }}" method="POST" autocomplete="off">
 		@csrf
 		<div class="col-12">
@@ -22,11 +22,11 @@
 						<div class="col-12 form-group">
 							<textarea id="editor" name="text"></textarea>
 						</div>
+						<div class="col-12 d-flex justify-content-end">
+							<button class="btn btn-lg btn-primary">{{ __('Save') }}</button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="d-flex justify-content-end">
-				<button class="btn btn-primary">{{ __('Save') }}</button>
 			</div>
 		</div>
 	</form>

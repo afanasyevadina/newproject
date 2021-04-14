@@ -1,13 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-  <div class="jumbotron">
-    <h1 class="mb-5">{{ __('Blog') }}</h1>
-    <a href="{{ route('blog.create', app()->getLocale()) }}" class="btn btn-success btn-lg">{{ __('Share your thoughts') }}</a>
+<div class="bg-light py-5 shadow">
+  <div class="container">
+    <div class="d-sm-flex align-items-start justify-content-center justify-content-sm-between">
+      <h1 class="mb-4 mb-md-0">{{ __('Blog') }}</h1>
+      <a href="{{ route('blog.create', app()->getLocale()) }}" class="btn btn-success btn-lg">{{ __('Share your thoughts') }}</a>
+    </div>
   </div>
+</div>
+<div class="container py-5">
   @foreach($articles as $article)
-  <div class="card">
+  <div class="card shadow">
     <div class="card-body">
       <div class="d-flex align-items-start justify-content-between mb-2">
         <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">
