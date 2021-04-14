@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($comment) {
+            $comment->comments()->delete();
+            $comment->rates()->delete();
+        });
+    }
+
     protected $fillable = [
         'commentable_id', 
         'commentable_type', 

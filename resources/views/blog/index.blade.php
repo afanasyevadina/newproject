@@ -8,10 +8,10 @@
   </div>
   @foreach($articles as $article)
   <div class="card">
-    <div class="card-body mb-4">
-      <div class="d-flex align-items-start justify-content-between">
+    <div class="card-body">
+      <div class="d-flex align-items-start justify-content-between mb-2">
         <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">
-          <h3 class="mb-4">{{ $article->title }}</h3>
+          <h3 class="m-0">{{ $article->title }}</h3>
         </a>
         @if($article->user->id == \Auth::id())
         <div class="dropdown">
@@ -19,12 +19,13 @@
             <img src="/images/icons/more.svg" alt=""/>
           </button>
           <div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
-            <a class="dropdown-item t-r_r-14" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
-            <a class="dropdown-item t-r_r-14" href="#" data-toggle="modal" data-target="#delete{{ $article->id }}">{{ __('Delete') }}</a>
+            <a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{ $article->id }}">{{ __('Delete') }}</a>
           </div>
         </div>
         @endif      
       </div>
+      <small class="d-block text-muted mb-4">{{ $article->user->name }}, {{ $article->date }}</small>
       <p>{!! $article->subtitle !!}</p>
       <div class="d-flex flex-wrap">
         @foreach($article->categories as $category)
@@ -35,10 +36,17 @@
       </div>
     </div>
     <div class="card-footer bg-white d-flex justify-content-between">
-      <a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark d-flex">
-        <small>{{ $article->user->name }}</small>
-      </a>
-      <small class="text-dark">{{ $article->date }}</small>
+      <div class="d-flex">
+        <div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('blog.like', $article->id) }}" data-likes=".likes-count{{ $article->id }}" data-dislikes=".dislikes-count{{ $article->id }}">
+          <span class="mr-1 likes-count{{ $article->id }}">{{ $article->likes_count }}</span>
+          <span class="text-success">+</span>
+        </div>
+        <div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('blog.dislike', $article->id) }}" data-likes=".likes-count{{ $article->id }}" data-dislikes=".dislikes-count{{ $article->id }}">
+          <span class="mr-1 dislikes-count{{ $article->id }}">{{ $article->dislikes_count }}</span>
+          <span class="text-danger">-</span>
+        </div>
+      </div>
+      <small class="text-dark">{{ $article->comments_count }} {{ __('comments') }}</small>
     </div>
   </div>
   <div class="modal fade" id="delete{{ $article->id }}">
@@ -60,4 +68,7 @@
   </div>
   @endforeach
 </div>
+@endsection
+@section('scripts')
+<script src="/js/likes.js"></script>
 @endsection

@@ -9,9 +9,10 @@
   <div class="row">
     @foreach($projects as $project)
     <div class="col-lg-4 col-sm-6">
-      <div class="card">
-        <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body mb-4 text-dark text-decoration-none">
-          <h3 class="mb-4">{{ $project->title }}</h3>
+      <div class="card h-100">
+        <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
+          <h3 class="mb-2">{{ $project->title }}</h3>
+          <small class="d-block text-muted mb-4">{{ $project->user->name }}, {{ $project->date }}</small>
           <p>{!! $project->subtitle !!}</p>
           <div class="d-flex flex-wrap">
             @foreach($project->categories as $category)
@@ -22,14 +23,24 @@
           </div>
         </a>
         <div class="card-footer bg-white d-flex justify-content-between">
-          <a href="{{ route('profile.view', [app()->getLocale(), $project->user->slug]) }}" class="text-dark d-flex">
-            <small>{{ $project->user->name }}</small>
-          </a>
-          <small class="text-dark">{{ $project->date }}</small>
+          <div class="d-flex">
+            <div class="c-pointer d-flex align-items-center mr-4 like-btn" data-href="{{ route('project.like', $project->id) }}" data-likes=".likes-count{{ $project->id }}" data-dislikes=".dislikes-count{{ $project->id }}">
+              <span class="mr-1 likes-count{{ $project->id }}">{{ $project->likes_count }}</span>
+              <span class="text-success">+</span>
+            </div>
+            <div class="c-pointer d-flex align-items-center like-btn" data-href="{{ route('project.dislike', $project->id) }}" data-likes=".likes-count{{ $project->id }}" data-dislikes=".dislikes-count{{ $project->id }}">
+              <span class="mr-1 dislikes-count{{ $project->id }}">{{ $project->dislikes_count }}</span>
+              <span class="text-danger">-</span>
+            </div>
+          </div>
+          <small class="text-dark">{{ $project->comments_count }} {{ __('comments') }}</small>
         </div>
       </div>
     </div>
     @endforeach
   </div>
 </div>
+@endsection
+@section('scripts')
+<script src="/js/likes.js"></script>
 @endsection

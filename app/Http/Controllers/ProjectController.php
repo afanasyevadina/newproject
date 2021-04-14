@@ -12,13 +12,13 @@ class ProjectController extends Controller
     {
     	return view('projects/index', [
     		'title' => 'Projects',
-    		'projects' => \Auth::user()->projects,
+    		'projects' => \Auth::user()->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get(),
     	]);
     }
 
     public function view($locale = 'en', $id)
     {
-        $project = Project::where('slug', $id)->firstOrFail();
+        $project = Project::where('slug', $id)->withCount('likes')->withCount('dislikes')->firstOrFail();
         $categories = Category::all();
         return view('projects/view', [
             'project' => $project,

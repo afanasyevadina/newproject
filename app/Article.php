@@ -13,6 +13,8 @@ class Article extends Model
         static::deleting(function ($article) {
             if($article->image && file_exists(public_path($article->image))) unlink(public_path($article->image));
             $article->categories()->sync([]);
+            $article->comments()->delete();
+            $article->rates()->delete();
         });
     }
 

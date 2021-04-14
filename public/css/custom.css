@@ -33,3 +33,15 @@
 .from-cke img {
 	max-width: 100%;
 }
+.user-answer {
+	border-left: 2px dashed #CCCCCC;
+}
+.avatar-area .icon {
+	transition: .4s;
+}
+.avatar-area:not(:hover) .icon {
+	opacity: 0;
+}
+.underline {
+	text-decoration: underline;
+}

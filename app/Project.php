@@ -12,6 +12,8 @@ class Project extends Model
 
         static::deleting(function ($project) {
             $project->categories()->sync([]);
+            $project->comments()->delete();
+            $project->rates()->delete();
         });
     }
 

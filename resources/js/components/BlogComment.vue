@@ -48,7 +48,7 @@
                 if(!window.apiToken) {
                     return
                 }
-                fetch('/api/comments/' + comment.id + '/like?api_token=' + window.apiToken)
+                fetch('/api/blog/' + comment.id + '/like?api_token=' + window.apiToken)
                 .then(response => response.json())
                 .then(json => {
                     comment.likes_count = json.likes
@@ -59,7 +59,7 @@
                 if(!window.apiToken) {
                     return
                 }
-                fetch('/api/comments/' + comment.id + '/dislike?api_token=' + window.apiToken)
+                fetch('/api/blog/' + comment.id + '/dislike?api_token=' + window.apiToken)
                 .then(response => response.json())
                 .then(json => {
                     comment.likes_count = json.likes

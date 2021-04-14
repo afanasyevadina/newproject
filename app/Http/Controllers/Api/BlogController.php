@@ -21,7 +21,10 @@ class BlogController extends Controller
 		} else {
 			$comments = $comments->sortByDesc('rating')->values()->all();
 		}
-		return response()->json($comments);
+		return response()->json([
+			'comments' => $comments,
+			'count' => $article->comments()->count(),
+		]);
 	}
 	
 	public function comment(Request $request, $id)

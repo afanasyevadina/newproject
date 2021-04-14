@@ -10,7 +10,7 @@ class NoteController extends Controller
 {
     public function view($locale = 'en', $id)
     {
-        $note = Comment::where('slug', $id)->firstOrFail();
+        $note = Comment::where('slug', $id)->withCount('likes')->withCount('dislikes')->firstOrFail();
         return view('notes/view', [
             'note' => $note,
             'title' => $note->title,

@@ -10,7 +10,7 @@ class BlogController extends Controller
 {
     public function index($locale = 'en')
     {
-    	$articles = Article::all();
+    	$articles = Article::withCount('likes')->withCount('dislikes')->withCount('comments')->get();
     	return view('blog/index', [
     		'articles' => $articles,
     		'title' => 'Blog',
@@ -19,7 +19,7 @@ class BlogController extends Controller
 
     public function view($locale = 'en', $id)
     {
-        $article = Article::where('slug', $id)->firstOrFail();
+        $article = Article::where('slug', $id)->withCount('likes')->withCount('dislikes')->firstOrFail();
         return view('blog/view', [
             'article' => $article,
             'title' => $article->title,
