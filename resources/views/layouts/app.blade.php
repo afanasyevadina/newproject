@@ -182,7 +182,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
       "name" : "New project",
       "url" : "{{ url('/') }}",
       "logo": "{{ asset('images/logo.png') }}",
-      "brand": "Tecedu",
+      "brand": "ToU",
       "description": "{{$metaDescription }}",
       "image": "{{ asset('images/logo.png') }}",
       "sameAs" : [
