@@ -4,7 +4,7 @@
 <div class="bg-light py-5 shadow">
   <div class="container">
     <div class="d-flex align-items-start flex-wrap">
-      <img srcset="{{ \Auth::user()->avatar }}, {{ config('app.avatar') }}" alt="" height="100" width="100" class="img-cover rounded-circle">
+      <img srcset="{{ \Auth::user()->avatar }}, {{ config('app.avatar') }}" alt="{{ \Auth::user()->name }}" height="100" width="100" class="img-cover rounded-circle">
       <div class="ml-3 ml-md-4">
         <h1 class="mb-4">{{ \Auth::user()->name }}</h1>
         <div class="d-flex flex-wrap">
@@ -30,24 +30,12 @@
   </div>
 </div>
 <div class="container py-5">
-  <ul class="nav nav-tabs">
-    <li class="nav-item">
-      <a href="#main" class="nav-link {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active' : '' }}" data-toggle="tab">{{ __('Main') }}</a>
-    </li>
-    <li class="nav-item">
-      <a href="#articles" class="nav-link {{ \Request::get('tab') == 'articles' ? 'active' : '' }}" data-toggle="tab">{{ __('Articles') }}</a>
-    </li>
-    <li class="nav-item">
-      <a href="#projects" class="nav-link {{ \Request::get('tab') == 'projects' ? 'active' : '' }}" data-toggle="tab">{{ __('Projects') }}</a>
-    </li>
-  </ul>
-  <div class="tab-content">
-    <div class="tab-pane fade py-4 {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active show' : '' }}" id="main">
+  <div class="card shadow bg-light mb-4">
+    <div class="card-body">
+      <h3 class="mb-4">{{ __('About') }} {{ @explode(' ', \Auth::user()->name)[0] }}:</h3>
+      <h5>{{ nl2br(\Auth::user()->about) }}</h5>
+      <hr>
       <div class="row">
-        <div class="col-12 mb-4">
-          <h5 class="mb-3">{{ __('About') }} {{ @explode(' ', \Auth::user()->name)[0] }}:</h5>
-          {{ nl2br(\Auth::user()->about) }}
-        </div>
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Interests') }}:</h5>
           {{ \Auth::user()->interests->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
@@ -62,11 +50,14 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade py-4 {{ \Request::get('tab') == 'projects' ? 'active show' : '' }}" id="projects">
+  </div>
+  <div class="card bg-light shadow mb-4">
+    <div class="card-body">
+      <h3 class="mb-4">{{ __('Projects') }}</h3>
       <div class="row">
         @foreach(\Auth::user()->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
-        <div class="col-lg-4 col-sm-6">
-          <div class="card h-100 shadow">
+        <div class="col-lg-4 col-sm-6 mb-4">
+          <div class="card h-100">
             <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
               <h3 class="mb-2">{{ $project->title }}</h3>
               <small class="d-block text-muted mb-4">{{ $project->user->name }}, {{ $project->date }}</small>
@@ -97,25 +88,26 @@
         @endforeach
       </div>
     </div>
-    <div class="tab-pane fade py-4 {{ \Request::get('tab') == 'articles' ? 'active show' : '' }}" id="articles">
+  </div>
+  <div class="card shadow bg-light mb-4">
+    <div class="card-body">
+      <h3 class="mb-4">{{ __('Articles') }}</h3>
       @foreach(\Auth::user()->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
-      <div class="card shadow">
+      <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between mb-2">
             <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">
               <h3 class="m-0">{{ $article->title }}</h3>
             </a>
-            @if($article->user->id == \Auth::id())
             <div class="dropdown">
               <button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="/images/icons/more.svg" alt=""/>
+                <img src="/images/icons/more.svg" alt="More"/>
               </button>
               <div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
                 <a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete{{ $article->id }}">{{ __('Delete') }}</a>
               </div>
             </div>
-            @endif      
           </div>
           <small class="d-block text-muted mb-4">{{ $article->user->name }}, {{ $article->date }}</small>
           <p>{!! $article->subtitle !!}</p>
@@ -162,11 +154,4 @@
     </div>
   </div>
 </div>
-@endsection
-@section('scripts')
-<script>
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    history.pushState(null, null, location.pathname + '?tab=' + $(e.target).attr("href").replace('#', ''))
-  });
-</script>
 @endsection

@@ -8,7 +8,7 @@
 			@if($article->user->id == \Auth::id())
 			<div class="dropdown">
 				<button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<img src="/images/icons/more.svg" alt=""/>
+					<img src="/images/icons/more.svg" alt="More"/>
 				</button>
 				<div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
 					<a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
@@ -20,7 +20,7 @@
 		<div>
 			<div class="mb-3 d-flex align-items-center">
 				<a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark mr-3 d-flex align-items-center">
-					<img srcset="{{ $article->user->avatar }}, {{ config('app.avatar') }}" alt="" class="img-cover rounded-circle mr-2" width="20" height="20">
+					<img srcset="{{ $article->user->avatar }}, {{ config('app.avatar') }}" alt="{{ $article->user->name }}" class="img-cover rounded-circle mr-2" width="20" height="20">
 					{{ $article->user->name }}
 				</a>
 				<small class="text-dark">{{ $article->date }}</small>
@@ -55,7 +55,7 @@
 		<form class="mb-4 form-comment" method="POST" action="" @submit.prevent="send">
 			<input type="hidden" name="image" id="img-input" v-model="comment.image">
 			<input type="hidden" name="reply_to" id="reply-input" v-model="comment.reply_to">
-			<img :src="comment.image" alt="" v-if="comment.image" id="preview" width="200" class="mb-3">
+			<img :src="comment.image" alt="image" v-if="comment.image" id="preview" width="200" class="mb-3">
 			<div class="form-group">
 				<textarea name="text" class="form-control" placeholder="Leave a comment..." v-model="comment.text" required></textarea>
 			</div>

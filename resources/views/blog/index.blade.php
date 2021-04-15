@@ -20,7 +20,7 @@
         @if($article->user->id == \Auth::id())
         <div class="dropdown">
           <button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <img src="/images/icons/more.svg" alt=""/>
+            <img src="/images/icons/more.svg" alt="More"/>
           </button>
           <div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
             <a class="dropdown-item" href="{{ route('blog.edit', [app()->getLocale(), $article->slug]) }}">{{ __('Edit') }}</a>
@@ -29,7 +29,10 @@
         </div>
         @endif      
       </div>
-      <small class="d-block text-muted mb-4">{{ $article->user->name }}, {{ $article->date }}</small>
+      <small class="d-block text-muted mb-4">
+        <a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark">{{ $article->user->name }}</a>
+        , {{ $article->date }}
+      </small>
       <p>{!! $article->subtitle !!}</p>
       <div class="d-flex flex-wrap">
         @foreach($article->categories as $category)

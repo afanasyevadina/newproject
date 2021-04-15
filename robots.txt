@@ -1,0 +1,7 @@
+User-agent: *
+User-agent: Googlebot
+User-agent: Yandex
+Allow:  /
+
+Host: http://new-project
+Sitemap:  http://new-project/sitemap.xml

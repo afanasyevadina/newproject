@@ -20,22 +20,22 @@
   </div>
 </div>
 <div class="container py-5">
+  @if(\Auth::check() && $project->user->id == \Auth::id())
   <ul class="nav nav-tabs mb-4">
     <li class="nav-item">
       <a href="#main" class="nav-link {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active' : '' }}" data-toggle="tab">{{ __('Main') }}</a>
     </li>
-    @if($project->user->id == \Auth::id())
     <li class="nav-item">
       <a href="#settings" class="nav-link {{ \Request::get('tab') == 'settings' ? 'active' : '' }}" data-toggle="tab">{{ __('Settings') }}</a>
     </li>
-    @endif
   </ul>
+  @endif
   <div class="tab-content">
-    <div class="tab-pane fade {{ !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active show' : '' }}" id="main">
+    <div class="tab-pane fade {{ !Auth::check() || !\Request::get('tab') || \Request::get('tab') == 'main' ? 'active show' : '' }}" id="main">
       <div class="mb-5">{!! nl2br($project->subtitle) !!}</div>
       <div class="d-flex align-items-start justify-content-between mb-4">
         <h3>{{ __('Notes') }}</h3>
-        @if($project->user->id == \Auth::id())
+        @if(\Auth::check() && $project->user->id == \Auth::id())
         <a href="{{ route('notes.create', [app()->getLocale(), $project->id]) }}" class="btn btn-success">{{ __('New note') }}</a>
         @endif
       </div>
@@ -49,7 +49,7 @@
             @if($comment->user->id == \Auth::id())
             <div class="dropdown">
               <button class="btn" id="dropdownBlog" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="/images/icons/more.svg" alt=""/>
+                <img src="/images/icons/more.svg" alt="more"/>
               </button>
               <div class="dropdown-menu dropdown-menu-right rounded-0" aria-labelledby="dropdownBlog">
                 <a href="{{ route('notes.edit', [app()->getLocale(), $comment->slug]) }}" class="dropdown-item">{{ __('Edit') }}</a>
@@ -84,7 +84,7 @@
       </div>
       @endforeach
     </div>
-    @if($project->user->id == \Auth::id())
+    @if(\Auth::check() && $project->user->id == \Auth::id())
     <div class="tab-pane fade {{ \Request::get('tab') == 'settings' ? 'active show' : '' }}" id="settings">
       <form class="row" action="{{ route('projects.edit', [app()->getLocale(), $project->slug]) }}" method="POST" autocomplete="off">
         @csrf

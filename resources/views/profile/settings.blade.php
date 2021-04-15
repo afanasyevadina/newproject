@@ -7,11 +7,11 @@
 		<div class="col-md-4 col-xl-3">
 			<div class="position-relative overflow-hidden avatar-area shadow">
 				<div class="img-rel img-rel-100">
-					<img src="" alt="" id="preview" hidden>
-					<img srcset="{{ $user->avatar }}, {{ config('app.avatar') }}" alt="" id="image">
+					<img src="" alt="avatar" id="preview" hidden>
+					<img srcset="{{ $user->avatar }}, {{ config('app.avatar') }}" alt="avatar" id="image">
 				</div>
 				<div class="d-flex position-absolute t-0 r-0 l-0 b-0 align-items-center justify-content-center icon">
-					<img src="/images/icons/image.png" alt="" height="50">
+					<img src="/images/icons/image.png" alt="image" height="50">
 				</div>
 				<input type="file" accept="image/*" id="avatar" class="fade position-absolute t-0 l-0 r-0 b-0 c-pointer">
 				<input type="hidden" name="avatar" id="avatar-data" value="{{ $user->avatar }}" data-value="{{ $user->avatar }}">
