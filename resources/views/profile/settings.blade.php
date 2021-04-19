@@ -25,17 +25,18 @@
 					<div class="row">                    	
 						<div class="col-12 form-group">
 							<label>{{ __('Name') }}</label>
-							<input type="text" class="form-control" name="name" value="{{ $user->name }}" required>
+							<input type="text" class="form-control" name="name" value="{{ $user->name }}" required placeholder="{{ __('Name') }}">
 						</div>
 						<div class="col-12 form-group">
 							<label>{{ __('Email') }}</label>
-							<input type="email" class="form-control" name="email" value="{{ $user->email }}" required>
+							<input type="email" class="form-control" name="email" value="{{ $user->email }}" required placeholder="email@domain.com">
 						</div>
 						<div class="col-sm-6 form-group">
 							<label>{{ __('Gender') }}</label>
 							<select name="gender" class="form-control">
 								<option value="0" {{ $user->gender == 0 ? 'selected' : '' }}>{{ __('Male') }}</option>
 								<option value="1" {{ $user->gender == 1 ? 'selected' : '' }}>{{ __('Female') }}</option>
+								<option value="2" {{ $user->gender == 2 ? 'selected' : '' }}>{{ __("I don't know") }}</option>
 							</select>
 						</div>
 						<div class="col-sm-6 form-group">
@@ -44,7 +45,7 @@
 						</div>
 						<div class="col-12 form-group">
 							<label>{{ __('About me') }}</label>
-							<textarea name="about" rows="5" class="form-control">{{ $user->about }}</textarea>
+							<textarea name="about" rows="5" class="form-control" placeholder="{{ __('Describe yourself') }}">{{ $user->about }}</textarea>
 						</div>
 					</div>
 				</div>
@@ -53,7 +54,7 @@
 				<div class="card-header">{{ __('Areas of activity') }}</div>
 
 				<div class="card-body">
-					<label class="mb-3">{{ __('Interests') }}</label>
+					<label class="mb-3">{{ __('Interests me') }}</label>
 					<div class="row">
 						@foreach($categories as $category)
 						<div class="col-6 col-lg-4">
@@ -65,7 +66,7 @@
 						@endforeach
 					</div>
 					<hr>
-					<label class="mb-3">{{ __('Skills') }}</label>
+					<label class="mb-3">{{ __('Skilled in') }}</label>
 					<div class="row">
 						@foreach($categories as $category)
 						<div class="col-6 col-lg-4">
@@ -77,7 +78,7 @@
 						@endforeach
 					</div>
 					<hr>
-					<label class="mb-3">{{ __('Goals') }}</label>
+					<label class="mb-3">{{ __('Wanna learn') }}</label>
 					<div class="row">
 						@foreach($categories as $category)
 						<div class="col-6 col-lg-4">

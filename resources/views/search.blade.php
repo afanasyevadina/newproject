@@ -3,7 +3,7 @@
 @section('content')
 <div class="bg-light py-5">
 	<div class="container">
-		<h1>{{ __('On request ') }} "{{ \Request::get('q') }}" {{ __('found') }}:</h1>
+		<h1>{{ __('On request') }} "{{ \Request::get('q') }}" {{ __('found') }}:</h1>
 	</div>
 </div>
 <div class="container py-5">

@@ -45,3 +45,6 @@
 .underline {
 	text-decoration: underline;
 }
+.vh-70 {
+	min-height: calc(70vh);
+}

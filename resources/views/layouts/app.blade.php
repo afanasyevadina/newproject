@@ -109,7 +109,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
             </a>
           </li>
           @guest
-          <li class="nav-item">
+          <li class="nav-item mr-md-4">
             <a class="nav-link" href="{{ route('login', app()->getLocale()) }}" itemprop="url">
               <span itemprop="name">{{ __('Login') }}</span>
             </a>

@@ -8,7 +8,7 @@
 		@csrf
 		<div class="col-12">
 			<div class="card mb-4">
-				<div class="card-header">{{ __('New note') }}</div>
+				<div class="card-header">{{ __('Edit note') }}</div>
 
 				<div class="card-body">
 					<div class="row">                    	
@@ -17,7 +17,7 @@
 						</div>
 						<div class="col-12 form-group">
 							<label>{{ __('Title') }}</label>
-							<input type="text" class="form-control" name="title" required value="{{ $note->title }}">
+							<input type="text" class="form-control" name="title" required placeholder="{{ __('Title') }}" value="{{ $note->title }}">
 						</div>
 						<div class="col-12 form-group">
 							<textarea id="editor" name="text">{{ $note->text }}</textarea>

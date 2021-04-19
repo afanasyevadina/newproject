@@ -45,20 +45,20 @@
 			<input type="hidden" name="reply_to" id="reply-input" v-model="comment.reply_to">
 			<img :src="comment.image" alt="image" v-if="comment.image" id="preview" width="200" class="mb-3">
 			<div class="form-group">
-				<textarea name="text" class="form-control" placeholder="Leave a comment..." v-model="comment.text" required></textarea>
+				<textarea name="text" class="form-control" placeholder="<?=__('Leave a comment')?>..." v-model="comment.text" required></textarea>
 			</div>
 			<div class="d-flex justify-content-between align-items-center">
 				<div class="">
 					<p v-if="reply" class="mb-0">
-						Reply to {{ reply.user.name }} <a href="#" class="color-gray ml-3" @click.prevent="reply = null">Cancel</a>
+						<?=__('Reply to')?> {{ reply.user.name }} <a href="#" class="color-gray ml-3" @click.prevent="reply = null"><?=__('Cancel')?></a>
 					</p>
 				</div>
 				<div class="d-flex align-items-center">
 					<label class="mr-3 c-pointer mb-0">
 						<input type="file" id="file-input" name="file" class="d-none" @change="preview($event)">
-						Image
+						<?=__('Attach image')?>
 					</label>
-					<button class="btn btn-primary">Send</button>
+					<button class="btn btn-primary"><?=__('Send')?></button>
 				</div>
 			</div>
 		</form>

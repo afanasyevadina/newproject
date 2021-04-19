@@ -14,11 +14,11 @@
 					<div class="row">                    	
 						<div class="col-12 form-group">
 							<label>{{ __('Title') }}</label>
-							<input type="text" class="form-control" name="title" required value="{{ $article->title }}">
+							<input type="text" class="form-control" name="title" required placeholder="{{ __('Title') }}" value="{{ $article->title }}">
 						</div>
 						<div class="col-12 form-group">
 							<label>{{ __('Subtitle') }}</label>
-							<textarea name="subtitle" rows="5" class="form-control">{{ $article->subtitle }}</textarea>
+							<textarea name="subtitle" rows="5" class="form-control" placeholder="{{ __('Short description') }}">{{ $article->subtitle }}</textarea>
 						</div>
 						<div class="col-12 form-group">
 							<textarea id="editor" name="content">{{ $article->content }}</textarea>

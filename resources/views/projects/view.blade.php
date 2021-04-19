@@ -96,11 +96,11 @@
               <div class="row">                       
                 <div class="col-12 form-group">
                   <label>{{ __('Title') }}</label>
-                  <input type="text" class="form-control" name="title" required value="{{ $project->title }}">
+                  <input type="text" class="form-control" name="title" required placeholder="{{ __('Title') }}" value="{{ $project->title }}">
                 </div>
                 <div class="col-12 form-group">
                   <label>{{ __('Subtitle') }}</label>
-                  <textarea name="subtitle" rows="5" class="form-control">{{ $project->subtitle }}</textarea>
+                  <textarea name="subtitle" rows="5" class="form-control"  placeholder="{{ __('Short description') }}">{{ $project->subtitle }}</textarea>
                 </div>
                 <div class="col-12 form-group">
                   <label class="mb-3">{{ __('Tags') }}</label>

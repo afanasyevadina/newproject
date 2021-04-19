@@ -17,7 +17,7 @@
 						</div>
 						<div class="col-12 form-group">
 							<label>{{ __('Title') }}</label>
-							<input type="text" class="form-control" name="title" required>
+							<input type="text" class="form-control" name="title" required placeholder="{{ __('Title') }}">
 						</div>
 						<div class="col-12 form-group">
 							<textarea id="editor" name="text"></textarea>
