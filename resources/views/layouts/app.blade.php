@@ -25,18 +25,12 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
   <meta property="og:image:secure_url" content="{{ str_replace('https', 'http', asset('images/logo.png')) }}" />
   <meta property="og:image:type" content="image/png" />
   <meta name="image" content="{{ asset('images/logo.png')}}" property="og:image" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:site" content="" />
-  <meta name="twitter:title" content="{{ $metaTitle }}" />
-  <meta name="twitter:description" content="{{ $metaDescription }}" />
-  <meta name="twitter:image" content="{{ asset('images/logo.png') }}" />
 
   <link rel="canonical" href="{{ $current == 'home' ? url('/') : route($current, array_merge($params, ['locale' => 'en'])) }}" />
   <link rel="alternate" hreflang="en" href="{{ route($current, array_merge($params, ['locale' => 'en'])) }}" />
   <link rel="alternate" hreflang="ru" href="{{ route($current, array_merge($params, ['locale' => 'ru'])) }}" />
   <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120-precomposed.png" /> 
   <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152-precomposed.png" />
-
   <!-- Scripts -->
   @auth
   <script>
