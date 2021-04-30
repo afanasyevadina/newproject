@@ -41,6 +41,7 @@
 		<h6 class="mb-4">{{ count }} <?=__('comments')?></h6>
 		<note-comment :comment="comment" v-for="comment in comments" :key="comment.id" :locale="'<?=app()->getLocale()?>'" :defaultavatar="'<?=config('app.avatar')?>'"></note-comment>
 		<form class="mb-4 form-comment" method="POST" action="" @submit.prevent="send">
+			<?php if(\Auth::check()) { ?>
 			<input type="hidden" name="image" id="img-input" v-model="comment.image">
 			<input type="hidden" name="reply_to" id="reply-input" v-model="comment.reply_to">
 			<img :src="comment.image" alt="image" v-if="comment.image" id="preview" width="200" class="mb-3">
@@ -61,6 +62,7 @@
 					<button class="btn btn-primary"><?=__('Send')?></button>
 				</div>
 			</div>
+			<?php } ?>
 		</form>
 		@endverbatim
 	</div>

@@ -25,8 +25,10 @@
             <div>{{ __('articles') }}</div>
           </div>
         </div>
+        @auth
         <button class="btn btn-lg btn-success subscribe-btn unsubscribed" data-href="{{ route('subscribe', $user->id) }}" {{ $user->subscription ? 'hidden' : '' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Subscribe') }}</button>
         <button class="btn btn-lg btn-secondary subscribe-btn subscribed" data-href="{{ route('unsubscribe', $user->id) }}" {{ $user->subscription ? '' : 'hidden' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Unsubscribe') }}</button>
+        @endauth
       </div>
     </div>
   </div>
@@ -40,15 +42,27 @@
       <div class="row">
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Interests') }}:</h5>
+          @if($user->interests->count())
           {{ $user->interests->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Skills') }}:</h5>
+          @if($user->skills->count())
           {{ $user->skills->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Goals') }}:</h5>
+          @if($user->goals->count())
           {{ $user->goals->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
       </div>
     </div>
@@ -57,7 +71,7 @@
     <div class="card-body">
       <h3 class="mb-4">{{ __('Projects') }}</h3>
       <div class="row">
-        @foreach($user->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
+        @forelse($user->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
             <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
@@ -87,14 +101,16 @@
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+        <div class="text-muted col-12">{{ __('No projects yet') }}</div>
+        @endforelse
       </div>
     </div>
   </div>
   <div class="card shadow bg-light mb-4">
     <div class="card-body">
       <h3 class="mb-4">{{ __('Articles') }}</h3>
-      @foreach($user->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
+      @forelse($user->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between mb-2">
@@ -126,7 +142,9 @@
           <small class="text-dark">{{ $article->comments_count }} {{ __('comments') }}</small>
         </div>
       </div>
-      @endforeach
+      @empty
+      <div class="text-muted">{{ __('No articles yet') }}</div>
+      @endforelse
     </div>
   </div>
 </div>

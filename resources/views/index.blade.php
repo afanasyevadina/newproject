@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="bg-light py-5 shadow mb-5">
+<div class="bg-light py-4 py-sm-5 shadow mb-5">
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-sm-6">
 				<h1 class="mb-4">{{ config('app.name') }}</h1>
-				<h5 class="mb-5">{{ __('If you want to learn something new - start your project.') }}</h5>
+				<h5 class="mb-4 mb-md-5">{{ __('If you want to learn something new - start your project.') }}</h5>
 				<div class="row">
-					<div class="col-6">
-						<a href="{{ route('projects', app()->getLocale()) }}" class="btn btn-success btn-lg btn-block">
+					<div class="col-sm-6">
+						<a href="{{ route('projects', app()->getLocale()) }}" class="btn btn-success btn-lg btn-block mb-2 mb-sm-0">
 							{{ __('Start now') }}
 						</a>
 					</div>
-					<div class="col-6">
+					<div class="col-sm-6">
 						<a href="#about" class="btn btn-primary btn-lg btn-block">
 							{{ __('Learn more') }}
 						</a>
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-6 text-center">
+			<div class="col-sm-6 text-center d-none d-sm-block">
 				<img src="/images/logo.png" alt="" class="img-fluid">
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 			<img src="/images/beginner.jpg" alt="" class="w-100">
 		</div>
 	</div>
-	<div class="row align-items-center mb-5">
+	<div class="row align-items-center mb-5 flex-column-reverse flex-sm-row">
 		<div class="col-sm-6 text-center">
 			<img src="/images/expert.jpg" alt="" class="w-100">
 		</div>

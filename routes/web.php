@@ -18,6 +18,23 @@ $routes = function() {
 		Route::get('/profile', 'ProfileController@index')->name('profile');
 		Route::get('/profile/settings', 'ProfileController@settings')->name('profile.settings');
 		Route::post('/profile/settings', 'ProfileController@saveSettings')->name('profile.settings');
+		Route::get('/blog/{id}/edit', 'BlogController@edit')->name('blog.edit');
+		Route::post('/blog/{id}/edit', 'BlogController@update')->name('blog.edit');
+		Route::get('/blog/{id}/delete', 'BlogController@delete')->name('blog.delete');
+
+		Route::get('/blog/create', 'BlogController@create')->name('blog.create');
+		Route::post('/blog/create', 'BlogController@store')->name('blog.create');
+		
+		Route::get('/projects/create', 'ProjectController@create')->name('projects.create');
+		Route::post('/projects/create', 'ProjectController@store')->name('projects.create');
+		Route::post('/projects/{id}/edit', 'ProjectController@update')->name('projects.edit');
+		Route::get('/projects/{id}/delete', 'ProjectController@delete')->name('projects.delete');
+
+		Route::get('/notes/create/{id}', 'NoteController@create')->name('notes.create');
+		Route::post('/notes/create/{id}', 'NoteController@store')->name('notes.create');
+		Route::get('/notes/{id}/edit', 'NoteController@edit')->name('notes.edit');
+		Route::post('/notes/{id}/edit', 'NoteController@update')->name('notes.edit');
+		Route::get('/notes/{id}/delete', 'NoteController@delete')->name('notes.delete');
 	});
 
 	Route::get('/', 'SiteController@index')->name('home');
@@ -25,26 +42,11 @@ $routes = function() {
 	Route::get('/profile/{id}', 'ProfileController@view')->name('profile.view');
 
 	Route::get('/blog', 'BlogController@index')->name('blog');
-	Route::get('/blog/create', 'BlogController@create')->name('blog.create');
-	Route::post('/blog/create', 'BlogController@store')->name('blog.create');
 	Route::get('/blog/{id}', 'BlogController@view')->name('blog.view');
-	Route::get('/blog/{id}/edit', 'BlogController@edit')->name('blog.edit');
-	Route::post('/blog/{id}/edit', 'BlogController@update')->name('blog.edit');
-	Route::get('/blog/{id}/delete', 'BlogController@delete')->name('blog.delete');
 
 	Route::get('/projects', 'ProjectController@index')->name('projects');
-	Route::get('/projects/create', 'ProjectController@create')->name('projects.create');
-	Route::post('/projects/create', 'ProjectController@store')->name('projects.create');
 	Route::get('/projects/{id}', 'ProjectController@view')->name('projects.view');
-	Route::post('/projects/{id}/edit', 'ProjectController@update')->name('projects.edit');
-	Route::get('/projects/{id}/delete', 'ProjectController@delete')->name('projects.delete');
-
-	Route::get('/notes/create/{id}', 'NoteController@create')->name('notes.create');
-	Route::post('/notes/create/{id}', 'NoteController@store')->name('notes.create');
 	Route::get('/notes/{id}', 'NoteController@view')->name('notes.view');
-	Route::get('/notes/{id}/edit', 'NoteController@edit')->name('notes.edit');
-	Route::post('/notes/{id}/edit', 'NoteController@update')->name('notes.edit');
-	Route::get('/notes/{id}/delete', 'NoteController@delete')->name('notes.delete');
 
 	Auth::routes();
 };

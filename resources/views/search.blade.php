@@ -133,8 +133,10 @@
 							<h3 class="ml-3">{{ $user->name }}</h3>
 						</a>
 						<div>
+							@auth
 							<button class="btn btn-success subscribe-btn unsubscribed" data-href="{{ route('subscribe', $user->id) }}" {{ $user->subscription ? 'hidden' : '' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Subscribe') }}</button>
 							<button class="btn btn-secondary subscribe-btn subscribed" data-href="{{ route('unsubscribe', $user->id) }}" {{ $user->subscription ? '' : 'hidden' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Unsubscribe') }}</button>
+							@endauth
 						</div>
 					</div>
 				</div>

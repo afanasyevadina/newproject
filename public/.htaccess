@@ -35,4 +35,3 @@
     AddOutputFilterByType DEFLATE application/x-font-ttf
     AddOutputFilterByType DEFLATE application/font-sfnt
 </IfModule> 
-Header set Cache-Control "max-age=290304000, public"

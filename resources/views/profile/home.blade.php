@@ -38,15 +38,27 @@
       <div class="row">
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Interests') }}:</h5>
+          @if(\Auth::user()->interests->count())
           {{ \Auth::user()->interests->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Skills') }}:</h5>
+          @if(\Auth::user()->skills->count())
           {{ \Auth::user()->skills->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
         <div class="col-md-4 mb-4">
           <h5 class="mb-3">{{ __('Goals') }}:</h5>
+          @if(\Auth::user()->goals->count())
           {{ \Auth::user()->goals->pluck('name')->map(function($v) { return '#'.$v; })->implode(', ') }}
+          @else
+          <span class="text-muted">{{ __('Not specified') }}</span>
+          @endif
         </div>
       </div>
     </div>
@@ -55,7 +67,7 @@
     <div class="card-body">
       <h3 class="mb-4">{{ __('Projects') }}</h3>
       <div class="row">
-        @foreach(\Auth::user()->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
+        @forelse(\Auth::user()->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
         <div class="col-lg-4 col-sm-6 mb-4">
           <div class="card h-100">
             <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
@@ -85,14 +97,16 @@
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+        <div class="text-muted col-12">{{ __('No projects yet') }}</div>
+        @endforelse
       </div>
     </div>
   </div>
   <div class="card shadow bg-light mb-4">
     <div class="card-body">
       <h3 class="mb-4">{{ __('Articles') }}</h3>
-      @foreach(\Auth::user()->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
+      @forelse(\Auth::user()->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between mb-2">
@@ -150,7 +164,9 @@
           </div>
         </div>
       </div>
-      @endforeach
+      @empty
+      <div class="text-muted">{{ __('No articles yet') }}</div>
+      @endforelse
     </div>
   </div>
 </div>

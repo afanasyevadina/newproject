@@ -69,7 +69,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left Side Of Navbar -->
-        <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto py-3 py-md-0">
           <form action="{{ route('search', app()->getLocale()) }}" class="ml-md-4 input-group" autocomplete="off" id="search-form">
             <input type="text" class="form-control" name="q" placeholder="{{ __("Let's search anything") }}..." value="{{ \Request::get('q') }}">
             <input type="hidden" value="" name="tab" id="search-tab-input">
@@ -93,30 +93,21 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
               <span itemprop="name">{{ __('Projects') }}</span>
             </a>
           </li>
-          <li class="nav-item mr-md-4 d-flex align-items-center">
-            <a class="nav-link {{ app()->getLocale() == 'ru' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'ru'])) }}">
-              RU
-            </a>
-            <div class="nav-text">/</div>
-            <a class="nav-link {{ app()->getLocale() == 'en' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'en'])) }}">
-              EN
-            </a>
-          </li>
           @guest
-          <li class="nav-item mr-md-4">
+          <li class="nav-item mr-md-3">
             <a class="nav-link" href="{{ route('login', app()->getLocale()) }}" itemprop="url">
               <span itemprop="name">{{ __('Login') }}</span>
             </a>
           </li>
           @if (Route::has('register'))
-          <li class="nav-item">
+          <li class="nav-item mr-md-4">
             <a class="nav-link" href="{{ route('register', app()->getLocale()) }}" itemprop="url">
               <span itemprop="name">{{ __('Register') }}</span>
             </a>
           </li>
           @endif
           @else
-          <li class="nav-item dropdown">
+          <li class="nav-item mr-md-4 dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{ Auth::user()->name }}
             </a>
@@ -139,6 +130,15 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
             </div>
           </li>
           @endguest
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link {{ app()->getLocale() == 'ru' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'ru'])) }}">
+              RU
+            </a>
+            <div class="nav-text">/</div>
+            <a class="nav-link {{ app()->getLocale() == 'en' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'en'])) }}">
+              EN
+            </a>
+          </li>
         </ul>
       </div>
     </div>

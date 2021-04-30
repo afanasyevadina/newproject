@@ -11,7 +11,7 @@ class ProfileController extends Controller
     public function index($locale = 'en')
     {
         return view('profile/home', [
-        	'title' => 'Home',
+        	'title' => 'Profile',
         ]);
     }
 
@@ -38,6 +38,7 @@ class ProfileController extends Controller
     public function view($locale = 'en', $id)
     {
     	$user = User::where('slug', $id)->firstOrFail();
+        if(\Auth::check() && $user->id == \Auth::id()) return redirect()->route('profile', app()->getLocale());
     	return view('profile/view', [
     		'user' => $user,
         	'title' => $user->name,
