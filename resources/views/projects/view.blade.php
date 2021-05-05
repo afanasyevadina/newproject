@@ -147,7 +147,9 @@
 </div>
 @endsection
 @section('scripts')
+@auth
 <script src="/js/likes.js"></script>
+@endauth
 <script>
   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     console.log(e)

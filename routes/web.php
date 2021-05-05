@@ -18,12 +18,12 @@ $routes = function() {
 		Route::get('/profile', 'ProfileController@index')->name('profile');
 		Route::get('/profile/settings', 'ProfileController@settings')->name('profile.settings');
 		Route::post('/profile/settings', 'ProfileController@saveSettings')->name('profile.settings');
-		Route::get('/blog/{id}/edit', 'BlogController@edit')->name('blog.edit');
-		Route::post('/blog/{id}/edit', 'BlogController@update')->name('blog.edit');
-		Route::get('/blog/{id}/delete', 'BlogController@delete')->name('blog.delete');
 
 		Route::get('/blog/create', 'BlogController@create')->name('blog.create');
 		Route::post('/blog/create', 'BlogController@store')->name('blog.create');
+		Route::get('/blog/{id}/edit', 'BlogController@edit')->name('blog.edit');
+		Route::post('/blog/{id}/edit', 'BlogController@update')->name('blog.edit');
+		Route::get('/blog/{id}/delete', 'BlogController@delete')->name('blog.delete');
 		
 		Route::get('/projects/create', 'ProjectController@create')->name('projects.create');
 		Route::post('/projects/create', 'ProjectController@store')->name('projects.create');
@@ -61,9 +61,6 @@ Route::group([
 	'middleware' => 'setlocale'
 ], $routes);
 
-Route::get('/sitemap.xml', function() {
-	return response()->view('sitemap')->header('Content-Type', 'application/xml');
-});
 Route::get('/sitemap.xml', function() {
 	return response()->view('sitemap')->header('Content-Type', 'application/xml');
 });

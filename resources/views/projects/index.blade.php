@@ -46,5 +46,7 @@
 </div>
 @endsection
 @section('scripts')
+@auth
 <script src="/js/likes.js"></script>
+@endauth
 @endsection

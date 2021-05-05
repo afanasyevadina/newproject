@@ -98,7 +98,9 @@
 </div>
 @endsection
 @section('scripts')
+@auth
 <script src="/js/likes.js"></script>
+@endauth
 <script type="module">
 	
 	var app = new Vue({
