@@ -10,7 +10,12 @@ class BlogController extends Controller
 {
     public function index($locale = 'en')
     {
-    	$articles = Article::withCount('likes')->withCount('dislikes')->withCount('comments')->get();
+    	$articles = Article::withCount('likes')->withCount('dislikes')->withCount('comments')
+        ->when(\Request::get('cat'), function($query) {
+            $query->whereHas('categories', function($q) {
+                $q->where('categories.slug', \Request::get('cat'));
+            });
+        })->get();
     	return view('blog/index', [
     		'articles' => $articles,
     		'title' => 'Blog',

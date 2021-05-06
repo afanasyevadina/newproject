@@ -3,7 +3,7 @@ if($current == 'login') $title = __('Login');
 if($current == 'register') $title = __('Register');
 $params = [];
 if(request()->id) $params['id'] = request()->id;
-$metaDescription = @$description ? __($description) : __("If you want to learn something new - start your project.").' '.__("Community support keeps you motivated and helps you find new ideas.").' '.__("Share your experience and gain even more.");
+$metaDescription = @$description ? __($description) : __("If you want to learn something new - start your project.").' '.__("Share your experience and gain even more.");
 $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project');
 ?>
 <!doctype html>
@@ -15,7 +15,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>{{ $metaTitle }}</title>
+  <title>{{ $metaTitle }} - {{ __('Learn new') }}</title>
   <meta name="description" content="{{ $metaDescription }}">
   <meta property="og:url" content="{{ route($current, array_merge($params, ['locale' => app()->getLocale()])) }}" />
   <meta property="og:type" content="article" />
@@ -84,31 +84,31 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
           <li class="nav-item mr-md-4">
-            <a href="{{ route('blog', app()->getLocale()) }}" class="nav-link" itemprop="url">
+            <a href="{{ route('blog', app()->getLocale()) }}" class="nav-link text-dark" itemprop="url">
               <span itemprop="name">{{ __('Blog') }}</span>
             </a>
           </li>
           <li class="nav-item mr-md-4">
-            <a href="{{ route('projects', app()->getLocale()) }}" class="nav-link" itemprop="url">
+            <a href="{{ route('projects', app()->getLocale()) }}" class="nav-link text-dark" itemprop="url">
               <span itemprop="name">{{ __('Projects') }}</span>
             </a>
           </li>
           @guest
           <li class="nav-item mr-md-3">
-            <a class="nav-link" href="{{ route('login', app()->getLocale()) }}" itemprop="url">
+            <a class="nav-link text-dark" href="{{ route('login', app()->getLocale()) }}" itemprop="url">
               <span itemprop="name">{{ __('Login') }}</span>
             </a>
           </li>
           @if (Route::has('register'))
           <li class="nav-item mr-md-4">
-            <a class="nav-link" href="{{ route('register', app()->getLocale()) }}" itemprop="url">
+            <a class="nav-link text-dark" href="{{ route('register', app()->getLocale()) }}" itemprop="url">
               <span itemprop="name">{{ __('Register') }}</span>
             </a>
           </li>
           @endif
           @else
           <li class="nav-item mr-md-4 dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+            <a id="navbarDropdown" class="nav-link text-dark dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
               {{ Auth::user()->name }}
             </a>
 
@@ -131,11 +131,11 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
           </li>
           @endguest
           <li class="nav-item d-flex align-items-center">
-            <a class="nav-link {{ app()->getLocale() == 'ru' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'ru'])) }}">
+            <a class="nav-link text-dark {{ app()->getLocale() == 'ru' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'ru'])) }}">
               RU
             </a>
             <div class="nav-text">/</div>
-            <a class="nav-link {{ app()->getLocale() == 'en' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'en'])) }}">
+            <a class="nav-link text-dark {{ app()->getLocale() == 'en' ? 'underline' : '' }}" href="{{ route($current, array_merge($params, ['locale' => 'en'])) }}">
               EN
             </a>
           </li>
@@ -179,13 +179,6 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
       "brand": "ToU",
       "description": "{{$metaDescription }}",
       "image": "{{ asset('images/logo.png') }}",
-      "sameAs" : [
-      "{{config('app.contact.facebook')}}",
-      "{{config('app.contact.instagram')}}",
-      "{{config('app.contact.youtube')}}",
-      "{{config('app.contact.linkedin')}}",
-      "{{config('app.contact.twitter')}}"
-      ],
       "address": {
       "@type": "PostalAddress",
       "streetAddress": "",

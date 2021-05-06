@@ -48,8 +48,14 @@ class Handler extends ExceptionHandler
      *
      * @throws \Throwable
      */
-    public function render($request, Throwable $exception)
+    public function render($request, Throwable $e)
     {
-        return parent::render($request, $exception);
+        if($this->isHttpException($e) && $e->getStatusCode() == 404 || get_class($e) == "Illuminate\Database\Eloquent\ModelNotFoundException")
+        {
+            $locale = request()->segment(1);
+            if(in_array($locale, config('app.locales'))) app()->setLocale($locale);
+            return response()->view('404')->setStatusCode(404);
+        }
+        return parent::render($request, $e);
     }
 }

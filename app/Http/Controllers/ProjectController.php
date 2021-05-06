@@ -10,23 +10,13 @@ class ProjectController extends Controller
 {
     public function index($locale = 'en')
     {
-        if(\Auth::check()) {
-            $projects = \Auth::user()
-            ->projects()
-            ->withCount('likes')
-            ->withCount('dislikes')
-            ->withCount('comments')
-            ->latest()
-            ->get();
-        } else {
-            $projects = Project::withCount('likes')
-            ->withCount('dislikes')
-            ->withCount('comments')->latest()->get();
-        }
-    	return view('projects/index', [
-    		'title' => 'Projects',
-    		'projects' => $projects,
-    	]);
+        $projects = Project::withCount('likes')
+        ->withCount('dislikes')
+        ->withCount('comments')->latest()->get();
+        return view('projects/index', [
+            'title' => 'Projects',
+            'projects' => $projects,
+        ]);
     }
 
     public function view($locale = 'en', $id)

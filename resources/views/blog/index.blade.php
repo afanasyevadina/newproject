@@ -11,7 +11,7 @@
 </div>
 <div class="container py-5">
   @foreach($articles as $article)
-  <div class="card shadow">
+  <div class="card shadow mb-4">
     <div class="card-body">
       <div class="d-flex align-items-start justify-content-between mb-2">
         <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">

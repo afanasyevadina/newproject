@@ -65,7 +65,10 @@
   </div>
   <div class="card bg-light shadow mb-4">
     <div class="card-body">
-      <h3 class="mb-4">{{ __('Projects') }}</h3>
+      <div class="d-flex justify-content-between">
+        <h3 class="mb-4">{{ __('Projects') }}</h3>
+        <a href="{{ route('projects.create', app()->getLocale()) }}" class="btn btn-success mb-4">{{ __('Start new project') }}</a>
+      </div>
       <div class="row">
         @forelse(\Auth::user()->projects()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $project)
         <div class="col-lg-4 col-sm-6 mb-4">
@@ -105,7 +108,10 @@
   </div>
   <div class="card shadow bg-light mb-4">
     <div class="card-body">
-      <h3 class="mb-4">{{ __('Articles') }}</h3>
+      <div class="d-flex justify-content-between">
+        <h3 class="mb-4">{{ __('Articles') }}</h3>
+        <a href="{{ route('blog.create', app()->getLocale()) }}" class="btn btn-success mb-4">{{ __('Share your thoughts') }}</a>
+      </div>
       @forelse(\Auth::user()->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
       <div class="card">
         <div class="card-body">
