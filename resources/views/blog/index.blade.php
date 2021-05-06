@@ -33,7 +33,7 @@
         <a href="{{ route('profile.view', [app()->getLocale(), $article->user->slug]) }}" class="text-dark">{{ $article->user->name }}</a>
         , {{ $article->date }}
       </small>
-      <p>{!! $article->subtitle !!}</p>
+      <p>{!! nl2br($article->subtitle) !!}</p>
       <div class="d-flex flex-wrap">
         @foreach($article->categories as $category)
         <a href="{{ route('blog', [app()->getLocale(), 'cat' => $category->slug]) }}" class="mr-3">

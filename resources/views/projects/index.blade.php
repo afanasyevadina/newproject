@@ -17,7 +17,7 @@
         <a href="{{ route('projects.view', [app()->getLocale(), $project->slug]) }}" class="card-body text-dark text-decoration-none">
           <h3 class="mb-2">{{ $project->title }}</h3>
           <small class="d-block text-muted mb-4">{{ $project->user->name }}, {{ $project->date }}</small>
-          <p>{!! $project->subtitle !!}</p>
+          <p>{!! nl2br($project->subtitle) !!}</p>
           <div class="d-flex flex-wrap">
             @foreach($project->categories as $category)
             <div class="mr-3 text-primary">

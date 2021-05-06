@@ -39,7 +39,7 @@
 	</div>
 </div>
 <div class="container py-5">
-	<p class="mb-4">{!! $article->subtitle !!}</p>
+	<p class="mb-4">{!! nl2br($article->subtitle) !!}</p>
 	<div class="from-cke mb-5">{!! $article->content !!}</div>
 	<div class="mb-4">
 		@foreach($article->categories as $category)
