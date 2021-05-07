@@ -72,6 +72,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
   <nav class="navbar navbar-expand-md navbar-light shadow">
     <div class="container">
       <a class="navbar-brand" href="{{ url('/') }}" itemprop="url">
+        <img src="/images/logo.png" height="45" alt="New project" class="d-sm-none">
         <span itemprop="name">{{ config('app.name', 'Laravel') }}</span>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

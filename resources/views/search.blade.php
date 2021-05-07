@@ -134,8 +134,10 @@
 						</a>
 						<div>
 							@auth
-							<button class="btn btn-success subscribe-btn unsubscribed" data-href="{{ route('subscribe', $user->id) }}" {{ $user->subscription ? 'hidden' : '' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Subscribe') }}</button>
-							<button class="btn btn-secondary subscribe-btn subscribed" data-href="{{ route('unsubscribe', $user->id) }}" {{ $user->subscription ? '' : 'hidden' }} data-subscribed=".subscribed" data-unsubscribed=".unsubscribed">{{ __('Unsubscribe') }}</button>
+							@if($user->id != \Auth::id())
+							<button class="btn btn-success subscribe-btn unsubscribed{{ $user->id }}" data-href="{{ route('subscribe', $user->id) }}" {{ $user->subscription ? 'hidden' : '' }} data-subscribed=".subscribed{{ $user->id }}" data-unsubscribed=".unsubscribed{{ $user->id }}">{{ __('Subscribe') }}</button>
+							<button class="btn btn-secondary subscribe-btn subscribed{{ $user->id }}" data-href="{{ route('unsubscribe', $user->id) }}" {{ $user->subscription ? '' : 'hidden' }} data-subscribed=".subscribed{{ $user->id }}" data-unsubscribed=".unsubscribed{{ $user->id }}">{{ __('Unsubscribe') }}</button>
+							@endif
 							@endauth
 						</div>
 					</div>

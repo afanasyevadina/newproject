@@ -16,14 +16,14 @@
             <h5 class="mb-0">{{ \Auth::user()->subscriptions()->count() }}</h5>
             <div>{{ __('subscriptions') }}</div>
           </div>
-          <div class="text-secondary mr-4 mb-2">
+          <a href="#projects" class="text-secondary mr-4 mb-2 text-decoration-none">
             <h5 class="mb-0">{{ \Auth::user()->projects()->count() }}</h5>
             <div>{{ __('projects') }}</div>
-          </div>
-          <div class="text-secondary mb-2">
+          </a>
+          <a href="#articles" class="text-secondary mb-2 text-decoration-none">
             <h5 class="mb-0">{{ \Auth::user()->articles()->count() }}</h5>
             <div>{{ __('articles') }}</div>
-          </div>
+          </a>
         </div>
       </div>
     </div>
@@ -63,7 +63,7 @@
       </div>
     </div>
   </div>
-  <div class="card bg-light shadow mb-4">
+  <div class="card bg-light shadow mb-4" id="projects">
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <h3 class="mb-4">{{ __('Projects') }}</h3>
@@ -106,14 +106,14 @@
       </div>
     </div>
   </div>
-  <div class="card shadow bg-light mb-4">
+  <div class="card shadow bg-light mb-4" id="articles">
     <div class="card-body">
       <div class="d-flex justify-content-between">
         <h3 class="mb-4">{{ __('Articles') }}</h3>
         <a href="{{ route('blog.create', app()->getLocale()) }}" class="btn btn-success mb-4">{{ __('Share your thoughts') }}</a>
       </div>
       @forelse(\Auth::user()->articles()->withCount('likes')->withCount('dislikes')->withCount('comments')->get() as $article)
-      <div class="card">
+      <div class="card mb-4">
         <div class="card-body">
           <div class="d-flex align-items-start justify-content-between mb-2">
             <a href="{{ route('blog.view', [app()->getLocale(), $article->slug]) }}" class="text-dark">
