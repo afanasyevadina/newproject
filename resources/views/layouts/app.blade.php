@@ -22,7 +22,7 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
   <meta property="og:title" content="{{ $metaTitle }}" />
   <meta property="og:description" content="{{ $metaDescription }}" />
   <meta property="og:image" content="{{ asset('images/logo.png') }}"/>
-  <meta property="og:image:secure_url" content="{{ str_replace('https', 'http', asset('images/logo.png')) }}" />
+  <meta property="og:image:secure_url" content="{{ asset('images/logo.png') }}" />
   <meta property="og:image:type" content="image/png" />
   <meta name="image" content="{{ asset('images/logo.png')}}" property="og:image" />
 
@@ -225,8 +225,8 @@ $metaTitle = (@$title ? __($title).' | ' : '') . config('app.name', 'New project
     "url": "{{ url('/') }}",
     "potentialAction": [{
     "@type": "SearchAction",
-    "target": "{{ url('/') }}/search{search_term_string}",
-    "query-input": "required q=search_term_string"
+    "target": "{{ url('/') }}/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
   }]
 }
 </script>
